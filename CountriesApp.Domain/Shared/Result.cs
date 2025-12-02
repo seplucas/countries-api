@@ -4,9 +4,7 @@ public abstract record Result
 {
     public bool IsSuccess { get; init; }
     public Error? Error { get; init; }
-
-    public bool IsFailure => !IsSuccess;
-
+    
     public static implicit operator bool(Result result) => result.IsSuccess;
 
     public static Result Success() => new SuccessResult();
