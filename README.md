@@ -91,7 +91,24 @@ CountriesApp/
 
 ## API Endpoints
 
-All endpoints require Auth0 authentication:
+All endpoints require Auth0 authentication and are subject to rate limiting.
+
+### Rate Limiting
+
+The API implements rate limiting to protect against abuse:
+
+- **Limit**: 100 requests per 60 seconds per user/IP
+- **Queue**: Up to 10 additional requests can be queued
+- **Response**: HTTP 429 (Too Many Requests) when limit exceeded
+- **Configuration**: Adjustable in `appsettings.json` under `RateLimiting` section
+
+```json
+"RateLimiting": {
+  "PermitLimit": 100,
+  "Window": 60,
+  "QueueLimit": 10
+}
+```
 
 ### Countries
 - `GET /countries` - List countries (with pagination & search)
